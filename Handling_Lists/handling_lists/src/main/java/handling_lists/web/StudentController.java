@@ -18,7 +18,7 @@ public class StudentController {
         students.add(new Student("John", "Smith"));
         students.add(new Student("Joe", "Doe"));
 
-        model.addAttribute("studentlistInHTML", students.toArray());
+        model.addAttribute("studentlistInHTML", students);
         return "studentlist";
     }
 

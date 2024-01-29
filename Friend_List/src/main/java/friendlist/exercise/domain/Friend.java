@@ -1,10 +1,10 @@
-package handling_lists.domain;
+package friendlist.exercise.domain;
 
-public class Student {
+public class Friend {
     private String firstname;
     private String lastname;
 
-    public Student(String firstname, String lastname) {
+    public Friend(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
     }
