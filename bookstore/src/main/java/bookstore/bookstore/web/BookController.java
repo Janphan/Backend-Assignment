@@ -3,9 +3,10 @@ package bookstore.bookstore.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bookstore.bookstore.domain.Book;
@@ -29,19 +30,25 @@ public class BookController {
         return "addbook";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     public String save(Book book) {
         repository.save(book);
         return "redirect:booklist";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteBook(@PathVariable("id") Long bookId, Model model) {
+    @GetMapping(value = "/delete/{id}")
+    public String deleteBook(@PathVariable("id") Long bookId) {
         repository.deleteById(bookId);
         return "redirect:../booklist";
     }
 
-    @RequestMapping("/hello")
+    @GetMapping(value = "/edit/{id}")
+    public String editBook(@PathVariable("id") Long bookId, Model model) {
+        model.addAttribute("book", repository.findById(bookId));
+        return "updatebook";
+    }
+
+    @GetMapping("/hello")
     public @ResponseBody String greeting() {
         return "Hello World";
     }
