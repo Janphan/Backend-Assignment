@@ -28,7 +28,11 @@ public class Book {
         this.price = price;
     }
 
-    public Book(Long id) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -70,14 +74,6 @@ public class Book {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }
