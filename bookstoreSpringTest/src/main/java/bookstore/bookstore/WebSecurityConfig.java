@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -20,26 +19,26 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig {
         @Autowired
         private UserDetailsService userDetailsService;
-        private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
-                        new AntPathRequestMatcher("/api/books**"),
-                        new AntPathRequestMatcher("/h2-console/**") };
 
         @Bean
         public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+
                 http
                                 .authorizeHttpRequests(authorize -> authorize
                                                 .requestMatchers(antMatcher("/css/**")).permitAll()
-                                                .requestMatchers(WHITE_LIST_URLS).permitAll()
+                                                .requestMatchers(antMatcher("/signup")).permitAll()
+                                                .requestMatchers(antMatcher("/saveuser")).permitAll()
                                                 .anyRequest().authenticated())
-                                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
-                                                .disable())) // for h2console
+                                .headers(headers -> headers
+                                                .frameOptions(frameoptions -> frameoptions.disable() // for h2 console
+                                                ))
                                 .formLogin(formlogin -> formlogin
                                                 .loginPage("/login")
                                                 .defaultSuccessUrl("/booklist", true)
                                                 .permitAll())
                                 .logout(logout -> logout
-                                                .permitAll())
-                                .csrf(csrf -> csrf.disable());
+                                                .permitAll());
+
                 return http.build();
         }
 
