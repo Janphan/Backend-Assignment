@@ -82,7 +82,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/hello")
-    public String helloSecure(Model model) {
+    public @ResponseBody String greeting() {
         return "hello";
     }
 

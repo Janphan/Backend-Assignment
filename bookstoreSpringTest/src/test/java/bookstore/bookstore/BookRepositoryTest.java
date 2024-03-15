@@ -28,6 +28,7 @@ public class BookRepositoryTest {
     public void findByAuthorShouldReturnAuthor() {
         List<Book> books = brepository.findByAuthor("Andy Weir");
         assertThat(books).hasSize(1);
+        assertThat(books.get(0).getTitle()).isEqualTo("The Martia");
     }
 
     @Test
